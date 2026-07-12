@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register as Candidate</title>
+    <link rel="stylesheet" href="register.css">
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* 🔹 Body */
+body {
+    background: linear-gradient(to bottom, #0f172a, #020617);
+    color: white;
+}
+
+/* 🔹 Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 40px;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.logo {
+    color: #38bdf8;
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.nav-links a {
+    margin: 0 15px;
+    color: #cbd5f5;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.nav-right {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.user {
+    color: #cbd5f5;
+    cursor: pointer;
+}
+
+/* 🔹 Container */
+.container {
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+}
+
+/* 🔹 Form Card */
+.form-card {
+    width: 700px;
+    background: #1e293b;
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.form-card h2 {
+    margin-bottom: 10px;
+}
+
+.subtext {
+    color: #cbd5f5;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+/* 🔹 Fields */
+.field {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #334155;
+    background: #020617;
+    color: white;
+}
+
+/* 🔹 Row */
+.row {
+    display: flex;
+    gap: 20px;
+}
+
+.row .field {
+    flex: 1;
+}
+
+/* 🔹 Textarea */
+textarea {
+    height: 120px;
+    resize: none;
+}
+
+/* 🔹 Button */
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: #38bdf8;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+/* 🌞 LIGHT MODE */
+/* 🌞 LIGHT MODE (REGISTER PAGE) */
+.light-mode {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.light-mode .navbar {
+    background: #e2e8f0;
+    border-bottom: 1px solid #cbd5e1;
+}
+
+.light-mode .nav-links a {
+    color: #334155;
+}
+
+.light-mode .user {
+    color: #0f172a;
+}
+
+.light-mode .form-card {
+    background: white;
+    color: #0f172a;
+    border: 1px solid #cbd5e1;
+}
+
+.light-mode input,
+.light-mode select,
+.light-mode textarea {
+    background: #f8fafc;
+    color: #0f172a;
+    border: 1px solid #cbd5e1;
+}
+
+.light-mode .subtext {
+    color: #475569;
+}
+    </style>
+</head>
+<body>
+
+<!-- 🔹 Navbar -->
+<header class="navbar">
+    <div class="logo">☑ Smart Vote</div>
+
+    <nav class="nav-links">
+        <a href="smsSdashboard.html">Dashboard</a>
+        <a href="">Run for Office</a>
+        <a href="smsStudentResult.html">Results</a>
+    </nav>
+
+    <div class="nav-right">
+        <span class="icon" style="cursor: pointer;">☀</span>
+        <span class="user">
+        <span id="userName">Loading...</span> →
+    </div>
+</header>
+
+<!-- 🔹 Form Section -->
+<div class="container">
+
+    <div class="form-card">
+        <h2>Register as Candidate</h2>
+        <p class="subtext">
+            Fill in your details to run for CR or DCR position. Your registration will be reviewed by the admin.
+        </p>
+
+        <div class="row">
+            <div class="field">
+                <label>Name</label>
+                <input type="text" placeholder="Rahul Sharma" id="name">
+            </div>
+
+            <div class="field">
+                <label>College ID</label>
+                <input type="text" placeholder="BCA2024001" id="rollNo">
+            </div>
+        </div>
+
+        <div class="field">
+            <label >Position</label>
+            <select id="position">
+                <option value="CR">Class Representative (CR)</option>
+                <option value="DCR">Deputy Class Representative (DCR)</option>
+            </select>
+        </div>
+
+        <div class="field">
+            <label>Photo URL</label>
+            <input type="text" placeholder="https://example.com/photo.jpg " id="photo">
+            <img id="preview" style="width:100px; display:none; margin-top:10px;">
+        </div>
+
+        <div class="field">
+            <label >Manifesto</label>
+            <textarea placeholder="Write your manifesto... Why should students vote for you?" id="manifesto"></textarea>
+        </div>
+
+        <button class="submit-btn" onclick="submitApplication()">Submit Application</button>
+    </div>
+
+</div>
+
+
+<!-- <script>
+// 🔐 PROTECT PAGE
+if (!localStorage.getItem("isLoggedIn")) {
+    window.location.replace("smslogin.html");
+}
+</script> -->
+<script>
+const userName = localStorage.getItem("name") || "User";
+document.getElementById("userName").innerText = userName;
+    // 🔐 PROTECT PAGE
+if (!localStorage.getItem("isLoggedIn")) {
+    window.location.replace("smshome.html");
+}
+
+// 🚫 BLOCK BACK BUTTON
+window.history.pushState(null, null, window.location.href);
+window.onpopstate = function () {
+    window.history.pushState(null, null, window.location.href);
+};
+    // ==============================
+// 🌙 DARK MODE TOGGLE
+// ==============================
+const toggleIcon = document.querySelector(".icon");
+
+toggleIcon.addEventListener("click", () => {
+    document.body.classList.toggle("light-mode");
+
+    if (document.body.classList.contains("light-mode")) {
+        toggleIcon.textContent = "🌙";
+    } else {
+        toggleIcon.textContent = "☀";
+    }
+});
+// logout
+const userText = document.querySelector(".user");
+
+userText.addEventListener("click", () => {
+    if (confirm("Logout?")) {
+        localStorage.clear();
+
+        // ❗ IMPORTANT
+        window.location.replace("smshome.html");
+    }
+});
+
+// registration
+async function submitApplication() {
+
+    const name = document.getElementById("name").value;
+    const rollNo = localStorage.getItem("rollNo"); // 🔥 important
+    const position = document.getElementById("position").value;
+    const photo = document.getElementById("photo").value;
+    const manifesto = document.getElementById("manifesto").value;
+
+    if (!name || !manifesto || !rollNo) {
+        alert("Fill all fields ❌");
+        return;
+    }
+
+    const res = await fetch("http://localhost:5000/api/candidates/add", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            name,
+            rollNo,
+            position,
+            photo,
+            manifesto
+        })
+    });
+
+    const data = await res.json();
+    alert(data.message);
+
+    // ✅ CLEAR FORM
+    document.getElementById("name").value = "";
+    document.getElementById("collegeId").value = "";
+    document.getElementById("manifesto").value = "";
+};
+// photo
+const photoInput = document.getElementById("photo");
+const preview = document.getElementById("preview");
+
+photoInput.addEventListener("input", () => {
+    const url = photoInput.value;
+
+    if (url) {
+        preview.src = url;
+        preview.style.display = "block";
+    } else {
+        preview.style.display = "none";
+    }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Candidates</title>
+    <link rel="stylesheet" href="manage.css">
+    <style>* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* 🔹 Body */
+body {
+    background: linear-gradient(to bottom, #0f172a, #020617);
+    color: white;
+}
+
+/* 🔹 Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 40px;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.logo {
+    color: #38bdf8;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.nav-links a {
+    margin: 0 10px;
+    color: #cbd5f5;
+    text-decoration: none;
+}
+
+.nav-right {
+    display: flex;
+    gap: 15px;
+}
+.user {
+    color: #cbd5f5;
+    cursor: pointer;
+}
+
+/* 🔹 Container */
+.container {
+    padding: 30px 40px;
+}
+
+/* 🔹 Tabs */
+.tabs {
+    margin: 20px 0;
+}
+
+.tabs button {
+    padding: 8px 15px;
+    border: none;
+    background: #334155;
+    color: white;
+    border-radius: 6px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.tabs .active {
+    background: #0f172a;
+    border: 1px solid #475569;
+}
+
+/* 🔹 Cards */
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card {
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 12px;
+    width: 500px;
+    border: 1px solid rgba(255,255,255,0.1);
+    position: relative;
+}
+
+/* 🔹 Header */
+.card-header {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    background: #0ea5e9;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 🔹 Badges */
+.badges {
+    margin-top: 5px;
+}
+
+.badge {
+    background: #38bdf8;
+    padding: 3px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+}
+
+.badge.gray {
+    background: #94a3b8;
+}
+
+.status {
+    margin-left: 8px;
+    padding: 3px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+}
+
+.status.approved {
+    background: #22c55e;
+}
+
+/* 🔹 Text */
+.card p {
+    font-size: 14px;
+    color: #cbd5f5;
+    margin: 10px 0;
+}
+
+.id {
+    font-size: 13px;
+}
+
+/* 🔹 Delete Button */
+.jsbtn {
+    /* position: absolute; */
+    margin-left: 30px;
+    right: 20px;
+    bottom: 20px;
+    padding: 8px 14px;
+    background: #38bdf8;
+    border: 1px solid #475569;
+    color:black;
+    border-radius: 6px;
+    cursor: pointer;
+}
+/* 🌞 LIGHT MODE (MANAGE CANDIDATES PAGE) */
+.light-mode {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+/* Navbar */
+.light-mode .navbar {
+    background: #e2e8f0;
+    border-bottom: 1px solid #cbd5e1;
+}
+
+/* Nav links */
+.light-mode .nav-links a {
+    color: #334155;
+}
+
+/* Cards */
+.light-mode .card {
+    background: white;
+    color: #0f172a;
+    border: 1px solid #cbd5e1;
+}
+
+/* Text */
+.light-mode .card p {
+    color: #334155;
+}
+
+/* Delete button */
+.light-mode .jsbtn {
+    background-color: white;
+    border: 1px solid #cbd5e1;
+}
+
+/* Tabs */
+.light-mode .tabs button {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+.light-mode .tabs .active {
+    background: white;
+    border: 1px solid #cbd5e1;
+}
+</style>
+</head>
+<body>
+
+<!-- 🔹 Navbar -->
+<header class="navbar">
+    <div class="logo">☑ Smart Vote</div>
+
+    <nav class="nav-links">
+        <a href="smsAdminDashboard.html">Dashboard</a>
+        <a href="#">Candidates</a>
+        <a href="smsAdminElection.html">Election</a>
+        <a href="smsAdminResult.html">Results</a>
+        <!-- <a href="#">Audit Log</a> -->
+    </nav>
+
+    <div class="nav-right">
+        <span class="icon" style="cursor: pointer;">☀</span>
+        <span class="user">Admin User →</span>
+    </div>
+</header>
+
+<!-- 🔹 Main -->
+<div class="container">
+
+    <h1>Manage Candidates</h1>
+
+    <!-- 🔹 Tabs -->
+    <div class="tabs">
+        <button class="active">All</button>
+        <!-- <button>Pending</button>
+        <button>Approved</button>
+        <button>Rejected</button> -->
+    </div>
+
+    <!-- 🔹 Cards -->
+    <div class="cards">
+
+       
+
+    </div>
+
+</div>
+
+<!-- <script>
+// 🔐 PROTECT PAGE
+if (!localStorage.getItem("isLoggedIn")) {
+    window.location.replace("smslogin.html");
+}
+</script> -->
+<script>
+    // 🔐 PROTECT PAGE
+if (!localStorage.getItem("isLoggedIn")) {
+    window.location.replace("smshome.html");
+}
+
+// 🚫 BLOCK BACK BUTTON
+window.history.pushState(null, null, window.location.href);
+window.onpopstate = function () {
+    window.history.pushState(null, null, window.location.href);
+};
+    // ==============================
+// 🌙 DARK MODE TOGGLE
+// ==============================
+const toggleIcon = document.querySelector(".icon");
+
+toggleIcon.addEventListener("click", () => {
+    document.body.classList.toggle("light-mode");
+
+    if (document.body.classList.contains("light-mode")) {
+        toggleIcon.textContent = "🌙";
+    } else {
+        toggleIcon.textContent = "☀";
+    }
+});
+// logout
+const userText = document.querySelector(".user");
+
+userText.addEventListener("click", () => {
+    if (confirm("Logout?")) {
+        localStorage.clear();
+
+        // ❗ IMPORTANT
+        window.location.replace("smshome.html");
+    }
+});
+
+// ==============================
+// LOAD CANDIDATES FROM BACKEND
+// ==============================
+
+async function loadCandidates() {
+    const res = await fetch("http://localhost:5000/api/candidates");
+    const data = await res.json();
+
+    const container = document.querySelector(".cards");
+    container.innerHTML = "";
+
+    data.forEach(c => {
+
+        let statusClass = "";
+        if (c.status === "approved") statusClass = "approved";
+        else if (c.status === "rejected") statusClass = "rejected";
+
+        // 🔥 BUTTON LOGIC
+        let buttons = "";
+
+        if (c.status === "pending") {
+            buttons = `
+                <button onclick="approve('${c._id}')" class="jsbtn">Approve ✅</button>
+                <button onclick="reject('${c._id}')" class="jsbtn">Reject ❌</button>
+                <button onclick="deleteCandidate('${c._id}')" class="jsbtn">🗑 Delete</button>
+            `;
+        } else if (c.status === "approved") {
+            buttons = `<p style="color: lightgreen; font-weight: bold;">Approved ✅</p>`;
+        } else {
+            buttons = `<p style="color: red; font-weight: bold;">Rejected ❌</p>`;
+        }
+
+        container.innerHTML += `
+            <div class="card">
+                <div class="card-header">
+                    <div class="avatar">
+                        <img src="${c.photo}" 
+                        onerror="this.src='https://via.placeholder.com/100'"
+                        style="width:60px; height:60px; border-radius:50%;">
+                    </div>
+                    <div>
+                        <h3>${c.name}</h3>
+                        <div class="badges">
+                            <span class="badge">${c.position}</span>
+                            <span class="status ${statusClass}">${c.status}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p>${c.manifesto}</p>
+
+                <p class="id">ID: ${c._id}</p>
+
+                ${buttons}
+            </div>
+        `;
+    });
+}
+
+loadCandidates();
+
+// APPROVE
+async function approve(id) {
+    await fetch(`http://localhost:5000/api/candidates/approve/${id}`, {
+        method: "POST"
+    });
+    loadCandidates();
+}
+
+// REJECT
+async function reject(id) {
+    await fetch(`http://localhost:5000/api/candidates/reject/${id}`, {
+        method: "POST"
+    });
+    loadCandidates();
+}
+
+// DELETE
+async function deleteCandidate(id) {
+    await fetch(`http://localhost:5000/api/candidates/delete/${id}`, {
+        method: "DELETE"
+    });
+    loadCandidates();
+}
+
+loadCandidates();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Election Settings</title>
+    <!-- <link rel="stylesheet" href="election.css"> -->
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* 🔹 Body */
+body {
+    background: linear-gradient(to bottom, #0f172a, #020617);
+    color: white;
+}
+
+/* 🔹 Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 40px;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.logo {
+    color: #38bdf8;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.nav-links a {
+    margin: 0 10px;
+    color: #cbd5f5;
+    text-decoration: none;
+}
+
+.nav-right {
+    display: flex;
+    gap: 15px;
+}
+.user {
+    color: #cbd5f5;
+    cursor: pointer;
+}
+
+/* 🔹 Container */
+.container {
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+}
+
+/* 🔹 Card */
+.form-card {
+    width: 600px;
+    background: #1e293b;
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.form-card h2 {
+    margin-bottom: 20px;
+}
+
+/* 🔹 Fields */
+.field {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #334155;
+    background: #020617;
+    color: white;
+}
+
+/* 🔹 Row */
+.row {
+    display: flex;
+    gap: 20px;
+}
+
+.row .field {
+    flex: 1;
+}
+
+/* 🔹 Button */
+.save-btn {
+    margin-top: 10px;
+    padding: 12px 20px;
+    background: #38bdf8;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+}
+/* 🌞 LIGHT MODE (ELECTION SETTINGS PAGE) */
+.light-mode {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+/* Navbar */
+.light-mode .navbar {
+    background: #e2e8f0;
+    border-bottom: 1px solid #cbd5e1;
+}
+
+/* Nav links */
+.light-mode .nav-links a {
+    color: #334155;
+}
+
+/* User text */
+.light-mode .user {
+    color: #0f172a;
+}
+
+/* Container */
+.light-mode .container {
+    background: #f1f5f9;
+}
+
+/* Form Card */
+.light-mode .form-card {
+    background: white;
+    color: #0f172a;
+    border: 1px solid #cbd5e1;
+}
+
+/* Inputs */
+.light-mode input {
+    background: #f8fafc;
+    color: #0f172a;
+    border: 1px solid #cbd5e1;
+}
+
+/* Labels */
+.light-mode label {
+    color: #334155;
+}
+
+/* Button */
+.light-mode .save-btn {
+    background: #0ea5e9;
+    color: white;
+}
+    </style>
+</head>
+<body>
+
+<!-- 🔹 Navbar -->
+<header class="navbar">
+    <div class="logo">☑ Smart Vote</div>
+
+    <nav class="nav-links">
+        <a href="smsAdminDashboard.html">Dashboard</a>
+        <a href="smsAdminManage.html">Candidates</a>
+        <a href="#">Election</a>
+        <a href="smsAdminResult.html">Results</a>
+        <!-- <a href="#">Audit Log</a> -->
+    </nav>
+
+    <div class="nav-right">
+        <span class="icon" style="cursor: pointer;">☀</span>
+        <span class="user">Admin User →</span>
+    </div>
+</header>
+
+<!-- 🔹 Main -->
+<div class="container">
+
+    <div class="form-card">
+        <h2>Election Settings</h2>
+
+        <!-- Title -->
+        <div class="field">
+            <label>Election Title</label>
+            <input type="text" id="title" value="BCA Final Year CR/DCR Election 2026">
+        </div>
+
+        <!-- Time Row -->
+        <div class="row">
+            <div class="field">
+                <label>Start Time</label>
+                <input type="datetime-local" id="startTime">
+            </div>
+
+            <div class="field">
+                <label>End Time</label>
+                <input type="datetime-local" id="endTime">
+            </div>
+        </div>
+
+        <!-- Button -->
+        <button class="save-btn">Save Settings</button>
+
+    </div>
+
+</div>
+
+<!-- <script>
+// 🔐 PROTECT PAGE
+if (!localStorage.getItem("isLoggedIn")) {
+    window.location.replace("smslogin.html");
+}
+</script> -->
+<script>
+    // 🔐 PROTECT PAGE
+if (!localStorage.getItem("isLoggedIn")) {
+    window.location.replace("smshome.html");
+}
+
+// 🚫 BLOCK BACK BUTTON
+window.history.pushState(null, null, window.location.href);
+window.onpopstate = function () {
+    window.history.pushState(null, null, window.location.href);
+};
+    // ==============================
+// 🌙 DARK MODE TOGGLE
+// ==============================
+const toggleIcon = document.querySelector(".icon");
+
+toggleIcon.addEventListener("click", () => {
+    document.body.classList.toggle("light-mode");
+
+    if (document.body.classList.contains("light-mode")) {
+        toggleIcon.textContent = "🌙";
+    } else {
+        toggleIcon.textContent = "☀";
+    }
+});
+
+// save button
+const saveBtn = document.querySelector(".save-btn");
+
+saveBtn.addEventListener("click", async () => {
+    console.log("clicked 🔥");
+
+    const title = document.getElementById("title").value;
+    const startTime = document.getElementById("startTime").value;
+    const endTime = document.getElementById("endTime").value;
+
+    // ❌ Validation
+    if (!title || !startTime || !endTime) {
+        alert("Fill all fields ❌");
+        return;
+    }
+
+    try {
+        const res = await fetch("http://localhost:5000/api/election/save", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                title,
+                startTime,
+                endTime
+            })
+        });
+
+        const data = await res.json();
+        alert(data.message);
+
+    } catch (err) {
+        console.log(err);
+        alert("Server error ❌");
+    }
+});
+// logout
+const userText = document.querySelector(".user");
+
+userText.addEventListener("click", () => {
+    if (confirm("Logout?")) {
+        localStorage.clear();
+
+        // ❗ IMPORTANT
+        window.location.replace("smshome.html");
+    }
+});
+</script>
+</body>
+
+
+</html>

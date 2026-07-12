@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Election Results</title>
+    <link rel="stylesheet" href="results.css">
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* 🔹 Body */
+body {
+    background: linear-gradient(to bottom, #0f172a, #020617);
+    color: white;
+}
+
+/* 🔹 Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 40px;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.logo {
+    color: #38bdf8;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.nav-links a {
+    margin: 0 15px;
+    color: #cbd5f5;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.nav-right {
+    display: flex;
+    gap: 15px;
+}
+.user {
+    color: #cbd5f5;
+    cursor: pointer;
+}
+
+/* 🔹 Container */
+.container {
+    padding: 30px 40px;
+}
+
+.subtitle {
+    color: #cbd5f5;
+    margin-bottom: 30px;
+}
+
+/* 🔹 Grid */
+.results-grid {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* 🔹 Card */
+.result-card {
+    background: #1e293b;
+    padding: 25px;
+    border-radius: 12px;
+    width: 500px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* 🔹 Chart */
+.chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 40px;
+    height: 200px;
+    margin: 20px 0;
+    border-left: 2px dashed #475569;
+    border-bottom: 2px dashed #475569;
+    padding: 10px;
+}
+
+.bar {
+    width: 80px;
+    background: #60a5fa;
+    text-align: center;
+    color: white;
+    border-radius: 6px 6px 0 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 5px;
+}
+
+.bar.dark {
+    background: #2563eb;
+}
+
+/* 🔹 Winner */
+.winner {
+    background: #334155;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+/* 🌞 LIGHT MODE */
+/* 🌞 LIGHT MODE (RESULT PAGE) */
+.light-mode {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.light-mode .navbar {
+    background: #e2e8f0;
+    border-bottom: 1px solid #cbd5e1;
+}
+
+.light-mode .nav-links a {
+    color: #334155;
+}
+
+.light-mode .result-card {
+    background: white;
+    color: #0f172a;
+    border: 1px solid #cbd5e1;
+}
+
+.light-mode .subtitle {
+    color: #475569;
+}
+
+.light-mode .chart {
+    border-left: 2px dashed #cbd5e1;
+    border-bottom: 2px dashed #cbd5e1;
+}
+
+.light-mode .winner {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+.light-mode .user{
+    color: #020617;
+}
+    </style>
+</head>
+<body>
+
+<!-- 🔹 Navbar -->
+<header class="navbar">
+    <div class="logo">☑ Smart Vote</div>
+
+    <nav class="nav-links">
+        <a href="smsSdashboard.html">Dashboard</a>
+        <a href="smsStudentRegister.html">Run for Office</a>
+        <a class="result">Results</a>
+    </nav>
+
+    <div class="nav-right">
+        <span class="icon" style="cursor: pointer;">☀</span>
+        <span class="user">
+        <span id="userName">Loading...</span> →
+    </div>
+</header>
+
+<!-- 🔹 Main -->
+<div class="container">
+
+    <h1>Election Results</h1>
+    <p class="subtitle">BCA Final Year CR/DCR Election 2026</p>
+
+    <div class="results-grid">
+
+        <!-- 🔹 CR Results -->
+        <div class="result-card">
+            <h2>🏆 CR Results</h2>
+
+            <div class="chart"></div>
+            <div class="winner"></div>
+        </div>
+
+        <!-- 🔹 DCR Results -->
+        <div class="result-card">
+            <h2>🏆 DCR Results</h2>
+
+            <div class="chart"></div>
+            <div class="winner"></div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- <script>
+// 🔐 PROTECT PAGE
+if (!localStorage.getItem("isLoggedIn")) {
+    window.location.replace("smslogin.html");
+}
+</script> -->
+<script>
+
+const userName = localStorage.getItem("name") || "User";
+document.getElementById("userName").innerText = userName;
+    // 🔐 PROTECT PAGE
+if (!localStorage.getItem("isLoggedIn")) {
+    window.location.replace("smshome.html");
+}
+
+// 🚫 BLOCK BACK BUTTON
+window.history.pushState(null, null, window.location.href);
+window.onpopstate = function () {
+    window.history.pushState(null, null, window.location.href);
+};
+    // ==============================
+// 🌙 DARK MODE TOGGLE
+// ==============================
+const toggleIcon = document.querySelector(".icon");
+
+toggleIcon.addEventListener("click", () => {
+    document.body.classList.toggle("light-mode");
+
+    if (document.body.classList.contains("light-mode")) {
+        toggleIcon.textContent = "🌙";
+    } else {
+        toggleIcon.textContent = "☀";
+    }
+});
+// logout
+const userText = document.querySelector(".user");
+
+userText.addEventListener("click", () => {
+    if (confirm("Logout?")) {
+        localStorage.clear();
+
+        // ❗ IMPORTANT
+        window.location.replace("smshome.html");
+    }
+});
+// chart
+// ==========================
+// 🔥 LOAD RESULTS
+// ==========================
+
+async function loadResults() {
+
+    // 🔒 check if declared
+    const res2 = await fetch("http://localhost:5000/api/election");
+    const election = await res2.json();
+
+    if (!election || !election.isDeclared) {
+        document.querySelector(".results-grid").innerHTML =
+            "<h2 style='color:red'>Results not declared yet ❌</h2>";
+        return;
+    }
+
+    // 📊 fetch results
+    // async function loadResults() {
+
+    const res = await fetch("http://localhost:5000/api/results");
+    const data = await res.json();
+
+    const cr = data.filter(c => c.position === "CR");
+    const dcr = data.filter(c => c.position === "DCR");
+
+    renderChart(cr, document.querySelectorAll(".chart")[0]);
+    renderChart(dcr, document.querySelectorAll(".chart")[1]);
+}
+// }
+
+// ==========================
+// 📊 RENDER CHART
+// ==========================
+
+function renderChart(candidates, container) {
+
+    container.innerHTML = "";
+
+    let maxVotes = 1;
+
+    candidates.forEach(c => {
+        if (c.votes > maxVotes) maxVotes = c.votes;
+    });
+
+    candidates.forEach((c, i) => {
+
+        const height = (c.votes / maxVotes) * 150;
+
+        container.innerHTML += `
+            <div class="bar ${i % 2 ? "dark" : ""}"
+                style="height:${height}px">
+                ${c.name}<br>${c.votes}
+            </div>
+        `;
+    });
+
+    // 🏆 winner
+    const winner = candidates.reduce((a, b) => a.votes > b.votes ? a : b);
+
+    const winnerBox = container.parentElement.querySelector(".winner");
+
+    winnerBox.innerHTML =
+        `🏆 Winner: ${winner.name} (${winner.votes} votes)`;
+}
+
+// ==========================
+
+loadResults();
+// renderChart();
+
+</script>
+</body>
+</html>
